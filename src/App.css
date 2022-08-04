@@ -1,7 +1,9 @@
 html {
-  --background-color: #edece8;
-  --foreground-color: #ffffff;
-  --board-color: #9CA0A1;
+  --background-color: #f8f9fa;
+  --foreground-color: #3c3c3c;
+  --board-color: #dee2e6;
+  --player-1-color: #A5BECC;
+  --player-2-color: #243A73;
 }
 
 body {
@@ -36,4 +38,13 @@ body {
   margin: 1vmin;
   background-color: var(--background-color);
   border-radius: 50%;
+  cursor: pointer;
+}
+
+.player-1 {
+  background-color: var(--player-1-color);
+}
+
+.player-2 {
+  background-color: var(--player-2-color);
 }
