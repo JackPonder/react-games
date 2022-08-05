@@ -16,14 +16,8 @@ export default function App() {
     
     for (const element of board) {
       for (const win of wins) {
-        const pieces = [
-          document.getElementById(parseInt(element.id) + win[0])?.firstElementChild?.className,
-          document.getElementById(parseInt(element.id) + win[1])?.firstElementChild?.className,
-          document.getElementById(parseInt(element.id) + win[2])?.firstElementChild?.className,
-          document.getElementById(parseInt(element.id) + win[3])?.firstElementChild?.className,
-        ];
-
-        if (pieces.every(piece => piece === pieces[0] && piece !== undefined)) {
+        const pieces = win.map(i => document.getElementById(parseInt(element.id) + i)?.children[0]);
+        if (pieces.every(piece => piece?.className === pieces[0]?.className && piece)) {
           setGameOver(true);
           return;
         }
