@@ -3,8 +3,36 @@ import "./App.css";
 
 export default function App() {
   const [ turn, setTurn ] = useState(1);
+  const [ gameOver, setGameOver ] = useState(false);
+
+  const checkWinner = () => {
+    const board = document.getElementById("board").children;
+    const wins = [
+      [0, 1, 2, 3],
+      [0, 8, 16, 24],
+      [0, 7, 14, 21],
+      [0, 9, 18, 27],
+    ];
+    
+    for (const element of board) {
+      for (const win of wins) {
+        const pieces = [
+          document.getElementById(parseInt(element.id) + win[0])?.firstElementChild?.className,
+          document.getElementById(parseInt(element.id) + win[1])?.firstElementChild?.className,
+          document.getElementById(parseInt(element.id) + win[2])?.firstElementChild?.className,
+          document.getElementById(parseInt(element.id) + win[3])?.firstElementChild?.className,
+        ];
+
+        if (pieces.every(piece => piece === pieces[0] && piece !== undefined)) {
+          setGameOver(true);
+          return;
+        }
+      }
+    }
+  }
 
   const handleMove = (event) => {
+    if (gameOver) return;
     let targetSpace = event.target;
     while (document.getElementById(parseInt(targetSpace.id) + 8)?.children.length === 0) {
       targetSpace = document.getElementById(parseInt(targetSpace.id) + 8);
@@ -15,6 +43,7 @@ export default function App() {
     piece.className = `piece player-${turn}`;
     targetSpace.appendChild(piece);
     turn === 1 ? setTurn(2) : setTurn(1);
+    checkWinner();
   }
 
   return (
