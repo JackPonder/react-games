@@ -2,8 +2,6 @@ html {
   --background-color: #f8f9fa;
   --foreground-color: #3c3c3c;
   --board-color: #dee2e6;
-  --player-1-color: #A5BECC;
-  --player-2-color: #243A73;
 }
 
 body {
@@ -41,10 +39,26 @@ body {
   cursor: pointer;
 }
 
+@keyframes drop-in {
+  0%   { transform: translateY(-70vmin) }
+  50%  { transform: translateY(0) }
+  60%  { transform: translateY(-6vmin) }
+  75%  { transform: translateY(0) }
+  90%  { transform: translateY(-2vmin) }
+  100% { transform: translateY(0) }
+}
+
+.piece {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  animation: drop-in 750ms ease-in;
+}
+
 .player-1 {
-  background-color: var(--player-1-color);
+  background-color: #a5becc;
 }
 
 .player-2 {
-  background-color: var(--player-2-color);
+  background-color: #243a73;
 }

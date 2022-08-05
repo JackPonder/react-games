@@ -6,12 +6,14 @@ export default function App() {
 
   const handleMove = (event) => {
     let targetSpace = event.target;
-    while (parseInt(targetSpace.id) < 40 && document.getElementById(parseInt(targetSpace.id) + 8).className === "grid-space") {
+    while (document.getElementById(parseInt(targetSpace.id) + 8)?.children.length === 0) {
       targetSpace = document.getElementById(parseInt(targetSpace.id) + 8);
     }
     
-    if (targetSpace.className !== "grid-space") return;
-    targetSpace.className = `grid-space player-${turn}`;
+    if (targetSpace.className !== "grid-space" || targetSpace.children.length !== 0) return;
+    const piece = document.createElement("div");
+    piece.className = `piece player-${turn}`;
+    targetSpace.appendChild(piece);
     turn === 1 ? setTurn(2) : setTurn(1);
   }
 
