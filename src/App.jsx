@@ -2,51 +2,64 @@ import { useState } from "react";
 import "./App.css";
 
 export default function App() {
+  const [ board, setBoard ] = useState(Array(42).fill(0));
   const [ turn, setTurn ] = useState(1);
-  const [ gameOver, setGameOver ] = useState(false);
+  const [ winner, setWinner ] = useState(0);
+
+  const resetBoard = () => {
+    if (!winner) return;
+    setBoard(Array(42).fill(0));
+    setTurn(1);
+    setWinner(0);
+  }
 
   const checkWinner = () => {
-    const board = document.getElementById("board").children;
     const wins = [
       [0, 1, 2, 3],
-      [0, 8, 16, 24],
+      [0, 6, 12, 18],
       [0, 7, 14, 21],
-      [0, 9, 18, 27],
+      [0, 8, 16, 24],
     ];
     
-    for (const element of board) {
+    for (let i = 0; i < board.length; i++) {
       for (const win of wins) {
-        const pieces = win.map(i => document.getElementById(parseInt(element.id) + i)?.children[0]);
-        if (pieces.every(piece => piece?.className === pieces[0]?.className && piece)) {
-          setGameOver(true);
-          return;
+        const pieces = win.map(j => board[i + j]);
+        if (pieces.every(piece => piece === pieces[0] && piece)) {
+          win.map(j => board[i + j] += 0.5);
+          setWinner(turn);
         }
       }
     }
   }
 
   const handleMove = (event) => {
-    if (gameOver) return;
-    let targetSpace = event.target;
-    while (document.getElementById(parseInt(targetSpace.id) + 8)?.children.length === 0) {
-      targetSpace = document.getElementById(parseInt(targetSpace.id) + 8);
-    }
-    
-    if (targetSpace.className !== "grid-space" || targetSpace.children.length !== 0) return;
-    const piece = document.createElement("div");
-    piece.className = `piece player-${turn}`;
-    targetSpace.appendChild(piece);
+    if (winner) return;
+    let target = parseInt(event.target.id);
+    while (board[target + 7] === 0) target += 7;
+    board[target] = turn;
     turn === 1 ? setTurn(2) : setTurn(1);
     checkWinner();
   }
 
   return (
-    <div className="App">
-      <div className="board" id="board">
-        {Array(48).fill().map((_, i) => 
-          <div className="grid-space" id={i} onClick={handleMove} />
-        )}
-      </div>   
-    </div>
+    <>
+      <div className="header" onClick={resetBoard}>
+        {winner ? `Player ${winner} has won! Tap to reset game.` : `Player ${turn}'s Turn`}
+      </div>
+      <div className="container">
+        <div className="board" id="board">
+          {board.map((value, index) => 
+            <div className="grid-space" id={index} value={0} onClick={handleMove}>
+              {value ? 
+                Number.isInteger(value) ? 
+                <div className={`piece player-${value}`} /> : 
+                <div className={`piece player-${Math.floor(value)} winner`} /> :
+                null
+              }
+            </div>
+          )}
+        </div>   
+      </div>
+    </>
   );
 }
