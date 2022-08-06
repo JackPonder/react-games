@@ -34,6 +34,7 @@ export default function App() {
 
   const handleMove = (event) => {
     if (winner) return;
+    if (event.target.className !== "grid-space") return;
     let target = parseInt(event.target.id);
     while (board[target + 7] === 0) target += 7;
     board[target] = turn;
