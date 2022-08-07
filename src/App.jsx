@@ -1,6 +1,7 @@
 import { initializeApp } from "firebase/app";
 import { getFirestore, doc, setDoc, onSnapshot } from "firebase/firestore";
 import { useState, useEffect } from "react";
+import { TbCrown } from "react-icons/tb";
 import "./App.css";
 
 const firebaseConfig = {
@@ -85,27 +86,29 @@ export default function App() {
   }
 
   return (
-    <>
-      <div className="header">
-        Connect 4
+    <div className="container">
+      <div className="sidebar">
+        <h1>Connect 4</h1>
+        <h2 onClick={resetBoard}>
+          {winner ? `Player ${winner} has won! Tap to reset game.` : `Player ${turn}'s Turn`}
+        </h2>
       </div>
-      <div className="container">
+      <div className="board-container">
         <div className="board" id="board">
           {board.map((value, index) => 
             <div className="grid-space" id={index} onClick={handleMove}>
               {value ? 
                 Number.isInteger(value) ? 
                 <div className={`piece player-${value}`} /> : 
-                <div className={`piece player-${Math.floor(value)} winner`} /> :
+                <div className={`piece player-${Math.floor(value)}`}>
+                  <TbCrown size="50%" />
+                </div> :
                 null
               }
             </div>
           )}
-        </div>   
-        <div className="footer" onClick={resetBoard}>
-          {winner ? `Player ${winner} has won! Tap to reset game.` : `Player ${turn}'s Turn`}
         </div>
       </div>
-    </>
+    </div>
   );
 }

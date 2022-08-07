@@ -1,64 +1,67 @@
 html {
-  --background-color: #f8f9fa;
-  --foreground-color: #3c3c3c;
-  --board-color: #dee2e6;
+  --grey-100: #f8f9fa;
+  --grey-200: #dee2e6;
+  --grey-300: #3c3c3c;
 }
 
 body {
   margin: 0;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  overflow: hidden;
+  background-color: var(--grey-100);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-.header {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  height: 10vh;  
-  font-size: 5vh;
-  font-weight: bold;
-  background-color: var(--background-color);
-}
-
-.footer {
-  margin-top: 5vh;
-  font-size: 3.5vh;
-  font-weight: bold;
-}
-
 .container {
   display: flex;
+  flex-direction: row;
+}
+
+.sidebar {
+  background-color: var(--grey-200);
+  padding: 2vmin 4vmin 0vmin;
+  text-align: center;
+  max-height: 100vh;
+  width: 17.5vw;
+  font-weight: bold;
+}
+
+.sidebar h1 {
+  font-size: 3vw;
+}
+
+.sidebar h2 {
+  font-size: 1.75vw;
+}
+
+.board-container {
+  display: flex;
   align-items: center;
   justify-content: center;
-  flex-direction: column;
-  background-color: var(--background-color);
-  color: var(--foreground-color);
-  min-height: 90vh;
+  height: 100vh;
 }
 
 .board {
   display: grid;
-  grid-template-columns: repeat(7, calc(80vmin / 7));
-  grid-template-rows: repeat(6, calc(80vmin * 6/7 / 6));
-  width: 80vmin;
-  height: calc(80vmin * 6/7);
-  background-color: var(--board-color);
-  border-radius: 1rem;
+  grid-template-columns: repeat(7, 15vmin);
+  grid-template-rows: repeat(6, 15vmin);
+  width: 105vmin;
+  height: 90vmin;
+  background-color: var(--grey-200);
+  border-radius: 3vmin;
   padding: 1vmin; 
+  margin: 0vmin 5vmin;
 }
 
 .grid-space {
   margin: 1vmin;
-  background-color: var(--background-color);
+  background-color: var(--grey-100);
   border-radius: 50%;
   cursor: pointer;
 }
 
 @keyframes drop-in {
-  0%   { transform: translateY(-80vmin) }
+  0%   { transform: translateY(-90vmin) }
   50%  { transform: translateY(0) }
   60%  { transform: translateY(-6vmin) }
   75%  { transform: translateY(0) }
@@ -67,10 +70,13 @@ body {
 }
 
 .piece {
+  display: flex;
+  align-items: center;
+  justify-content: center;
   width: 100%;
   height: 100%;
-  border-radius: 50%;
   animation: drop-in 750ms ease-in;
+  border-radius: 50%;
 }
 
 .player-1 {
@@ -79,10 +85,4 @@ body {
 
 .player-2 {
   background-color: #243a73;
-}
-
-.winner {
-  width: calc(100% - 1rem);
-  height: calc(100% - 1rem);
-  border: solid 0.5rem #ffff00;
 }
