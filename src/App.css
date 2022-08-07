@@ -7,6 +7,7 @@ html {
 body {
   margin: 0;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  overflow: hidden;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
@@ -15,11 +16,17 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 4rem;  
-  font-size: 2rem;
+  text-align: center;
+  height: 10vh;  
+  font-size: 5vh;
   font-weight: bold;
-  background-color: var(--board-color);
-  margin-top: -0.375rem;
+  background-color: var(--background-color);
+}
+
+.footer {
+  margin-top: 5vh;
+  font-size: 3.5vh;
+  font-weight: bold;
 }
 
 .container {
@@ -29,18 +36,18 @@ body {
   flex-direction: column;
   background-color: var(--background-color);
   color: var(--foreground-color);
-  min-height: calc(100vh - 4rem);
+  min-height: 90vh;
 }
 
 .board {
   display: grid;
-  grid-template-columns: repeat(7, calc(90vmin/7));
-  grid-template-rows: repeat(6, calc(90vmin * 6/7 / 6));
-  width: 90vmin;
-  height: calc(90vmin * 6/7);
+  grid-template-columns: repeat(7, calc(80vmin / 7));
+  grid-template-rows: repeat(6, calc(80vmin * 6/7 / 6));
+  width: 80vmin;
+  height: calc(80vmin * 6/7);
   background-color: var(--board-color);
   border-radius: 1rem;
-  padding: 1vmin;
+  padding: 1vmin; 
 }
 
 .grid-space {
@@ -60,11 +67,10 @@ body {
 }
 
 .piece {
-  width: calc(100% - 1rem);
-  height: calc(100% - 1rem);
+  width: 100%;
+  height: 100%;
   border-radius: 50%;
   animation: drop-in 750ms ease-in;
-  border: solid 0.5rem transparent;
 }
 
 .player-1 {
@@ -76,5 +82,7 @@ body {
 }
 
 .winner {
-  border: solid 0.5rem yellow;
+  width: calc(100% - 1rem);
+  height: calc(100% - 1rem);
+  border: solid 0.5rem #ffff00;
 }
