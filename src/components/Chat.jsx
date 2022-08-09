@@ -1,8 +1,11 @@
 import { updateDoc, arrayUnion } from "firebase/firestore";
 import { useState } from "react";
+import { useUser } from "../hooks/useUser";
+import "../styles/Chat.css";
 
-export default function Chat({ docRef, user, messages }) {
+export default function Chat({ docRef, messages }) {
   const [formValue, setFormValue] = useState("");
+  const {user} = useUser();
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -24,7 +27,7 @@ export default function Chat({ docRef, user, messages }) {
 
   return (
     <div className="chat">
-      <div style={{ overflow: "auto" }}>
+      <div style={{ overflow: "auto", marginBottom: "20px" }}>
         {messages.map(message => 
           <div style={{marginBottom: "1vmin"}}>
             <small>{message.creator}</small>

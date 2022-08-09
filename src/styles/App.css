@@ -1,0 +1,38 @@
+html {
+  --color-100: #21252b;
+  --color-200: #333842;
+  --color-300: #eeeeee;
+  --color-400: #a5becc;
+  --color-500: #243a73;
+  --color-600: #7289da;
+  --color-700: #304db5;
+}
+
+body {
+  margin: 0;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-weight: bold;
+  background-color: var(--color-200);
+  color: var(--color-300);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  margin: 0;
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.container {
+  display: flex;
+  flex-direction: row;
+  height: 100vh;
+}
+
+@media only screen and (max-width: 775px) {
+  .container {
+    flex-direction: column;
+    height: auto;
+  }
+}

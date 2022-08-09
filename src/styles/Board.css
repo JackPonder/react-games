@@ -1,0 +1,63 @@
+.board-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin: 0vmin 3vmin;
+}
+
+.board-label {
+  background-color: var(--color-100);
+  border-radius: 1vmin;
+  width: 100%;
+  margin: 2.25vmin 0vmin;
+  padding: 1vmin;
+  padding-top: 0.75vmin;
+  text-align: center;
+  font-size: 3vh;
+}
+
+.board {
+  display: grid;
+  grid-template-columns: repeat(7, 13vmin);
+  grid-template-rows: repeat(6, 13vmin);
+  background-color: var(--color-100);
+  width: 91vmin;
+  height: 78vmin;
+  border-radius: 3vmin;
+  padding: 1vmin; 
+}
+
+.grid-space {
+  margin: 1vmin;
+  background-color: var(--color-200);
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+@keyframes drop-in {
+  0%   { transform: translateY(-90vmin) }
+  50%  { transform: translateY(0) }
+  60%  { transform: translateY(-6vmin) }
+  75%  { transform: translateY(0) }
+  90%  { transform: translateY(-2vmin) }
+  100% { transform: translateY(0) }
+}
+
+.piece {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  animation: drop-in 750ms ease-in;
+  border-radius: 50%;
+}
+
+.player-1 {
+  background-color: var(--color-400);
+}
+
+.player-2 {
+  background-color: var(--color-500);
+}

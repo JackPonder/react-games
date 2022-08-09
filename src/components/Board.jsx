@@ -1,7 +1,10 @@
 import { updateDoc } from "firebase/firestore";
 import { TbCrown } from "react-icons/tb";
+import { useUser } from "../hooks/useUser";
+import "../styles/Board.css";
 
-export default function Board({ docRef, user, gameVariables }) {
+export default function Board({ docRef, gameVariables }) {
+  const {user} = useUser();
   const board = gameVariables.board;
   const players = gameVariables.players;
   const turn = gameVariables.turn;

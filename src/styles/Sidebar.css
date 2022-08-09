@@ -1,0 +1,32 @@
+.sidebar {
+  display: flex;
+  flex-direction: column;
+  background-color: var(--color-100);
+  padding: 4vmin;
+  text-align: center;
+  max-height: 100vh;
+}
+
+.btn {
+  background-color: var(--color-600);
+  color: var(--color-300);
+  border: none;
+  border-radius: 1vmin;
+  padding: 1.5vmin;
+  cursor: pointer;
+  width: 100%;
+  font-size: large;
+  font-weight: bold;
+  transition: 250ms;
+  margin-top: 0.5rem;
+}
+
+.btn:hover {
+  background-color: var(--color-700);
+}
+
+@media only screen and (max-width: 775px) {
+  .sidebar {
+    max-width: 100%;
+  } 
+}
