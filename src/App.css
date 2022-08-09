@@ -1,61 +1,82 @@
 html {
-  --grey-100: #f8f9fa;
-  --grey-200: #dee2e6;
-  --grey-300: #3c3c3c;
+  --color-100: #21252b;
+  --color-200: #333842;
+  --color-300: #eeeeee;
+  --color-400: #a5becc;
+  --color-500: #243a73;
 }
 
 body {
   margin: 0;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  background-color: var(--grey-100);
+  font-weight: bold;
+  background-color: var(--color-200);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  margin: 0;
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
 }
 
 .container {
   display: flex;
   flex-direction: row;
+  height: 100vh;
 }
 
 .sidebar {
-  background-color: var(--grey-200);
-  padding: 2vmin 4vmin 0vmin;
+  display: flex;
+  flex-direction: column;
+  background-color: var(--color-100);
+  color: var(--color-300);
+  padding: 4vmin;
   text-align: center;
   max-height: 100vh;
-  width: 17.5vw;
+  margin-right: 3vmin;
+}
+
+.btn {
+  background-color: #7289da;
+  color: var(--color-300);
+  border: none;
+  border-radius: 1vmin;
+  padding: 1.5vmin;
+  cursor: pointer;
+  width: 100%;
+  font-size: large;
   font-weight: bold;
+  transition: 250ms;
+  margin-top: 0.5rem;
 }
 
-.sidebar h1 {
-  font-size: 3vw;
-}
-
-.sidebar h2 {
-  font-size: 1.75vw;
+.btn:hover {
+  background-color: #304db5;
 }
 
 .board-container {
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 100vh;
 }
 
 .board {
   display: grid;
-  grid-template-columns: repeat(7, 15vmin);
-  grid-template-rows: repeat(6, 15vmin);
-  width: 105vmin;
-  height: 90vmin;
-  background-color: var(--grey-200);
+  grid-template-columns: repeat(7, 15vh);
+  grid-template-rows: repeat(6, 15vh);
+  background-color: var(--color-100);
+  width: 105vh;
+  height: 90vh;
   border-radius: 3vmin;
   padding: 1vmin; 
-  margin: 0vmin 5vmin;
+  margin: 5vmin 0vmin;
 }
 
 .grid-space {
   margin: 1vmin;
-  background-color: var(--grey-100);
+  background-color: var(--color-200);
   border-radius: 50%;
   cursor: pointer;
 }
@@ -80,9 +101,28 @@ body {
 }
 
 .player-1 {
-  background-color: #a5becc;
+  background-color: var(--color-400);
 }
 
 .player-2 {
-  background-color: #243a73;
+  background-color: var(--color-500);
+}
+
+@media only screen and (max-width: 775px) {
+  .container {
+    flex-direction: column;
+    height: auto;
+  }
+  .sidebar {
+    width: 100%;
+    height: auto;
+    padding: 0;
+    margin: 0;
+  }
+  .board {
+    grid-template-columns: repeat(7, 13vw);
+    grid-template-rows: repeat(6, 13vw);
+    width: 91vw;
+    height: 78vw;
+  }
 }
