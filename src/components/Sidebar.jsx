@@ -15,9 +15,7 @@ export default function Sidebar() {
   return (
     <div className="sidebar">
       <h1>Connect 4</h1>
-      <h3>Play a Friend</h3>
-      <h3>Play vs. Computer</h3>
-      <div style={{marginTop:"auto", marginBottom:"4vmin"}}>
+      <div>
         {auth.currentUser ?
           <button onClick={signout} className="btn">Sign Out</button> :
           <button onClick={signin} className="btn">Sign In</button>

@@ -11,6 +11,7 @@ body {
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   font-weight: bold;
   background-color: var(--color-200);
+  color: var(--color-300);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
@@ -31,11 +32,9 @@ h1, h2, h3, h4, h5, h6 {
   display: flex;
   flex-direction: column;
   background-color: var(--color-100);
-  color: var(--color-300);
   padding: 4vmin;
   text-align: center;
   max-height: 100vh;
-  margin-right: 3vmin;
 }
 
 .btn {
@@ -58,20 +57,32 @@ h1, h2, h3, h4, h5, h6 {
 
 .board-container {
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
+  margin: 0vmin 3vmin;
+}
+
+.board-label {
+  background-color: var(--color-100);
+  border-radius: 1vmin;
+  width: 100%;
+  margin: 2.25vmin 0vmin;
+  padding: 1vmin;
+  padding-top: 0.75vmin;
+  text-align: center;
+  font-size: 3vmin;
 }
 
 .board {
   display: grid;
-  grid-template-columns: repeat(7, 15vh);
-  grid-template-rows: repeat(6, 15vh);
+  grid-template-columns: repeat(7, 13vmin);
+  grid-template-rows: repeat(6, 13vmin);
   background-color: var(--color-100);
-  width: 105vh;
-  height: 90vh;
+  width: 91vmin;
+  height: 78vmin;
   border-radius: 3vmin;
   padding: 1vmin; 
-  margin: 5vmin 0vmin;
 }
 
 .grid-space {
@@ -114,15 +125,7 @@ h1, h2, h3, h4, h5, h6 {
     height: auto;
   }
   .sidebar {
-    width: 100%;
+    max-width: 100%;
     height: auto;
-    padding: 0;
-    margin: 0;
-  }
-  .board {
-    grid-template-columns: repeat(7, 13vw);
-    grid-template-rows: repeat(6, 13vw);
-    width: 91vw;
-    height: 78vw;
   }
 }
