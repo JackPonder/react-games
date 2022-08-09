@@ -1,32 +1,19 @@
-import { db, auth } from "../firebaseInit";
-import { doc, setDoc, onSnapshot } from "firebase/firestore";
-import { useState, useEffect } from "react";
+import { updateDoc } from "firebase/firestore";
 import { TbCrown } from "react-icons/tb";
 
-export default function Board({ roomId }) {
-  const [board, setBoard] = useState(Array(42).fill(0));
-  const [players, setPlayers] = useState([]);
-  const [turn, setTurn] = useState(1);
-  const [winner, setWinner] = useState(0);
-
-  const docRef = doc(db, "rooms", roomId);
-
-  useEffect(() => {
-    onSnapshot(docRef, doc => {
-      setBoard(doc.data().board);
-      setTurn(doc.data().turn);
-      setWinner(doc.data().winner);
-      setPlayers(doc.data().players)
-    })  
-  }, [docRef])
+export default function Board({ docRef, user, gameVariables }) {
+  const board = gameVariables.board;
+  const players = gameVariables.players;
+  const turn = gameVariables.turn;
+  const winner = gameVariables.winner;
 
   const resetBoard = () => {
     if (!winner) return;
-    setDoc(docRef, { 
+    updateDoc(docRef, { 
       board: Array(42).fill(0), 
       turn: 1, 
       winner: 0 
-    }, { merge: true });
+    });
   }
 
   const checkWinner = () => {
@@ -63,15 +50,15 @@ export default function Board({ roomId }) {
   const handleMove = (event) => {
     if (winner) return;
     if (event.target.className !== "grid-space") return;
-    if (players[turn - 1] !== auth.currentUser?.displayName) return;
+    if (players[turn - 1] !== user?.displayName) return;
 
     let target = parseInt(event.target.id);
     while (board[target + 7] === 0) target += 7;
     board[target] = turn;
 
-    setDoc(docRef, { 
+    updateDoc(docRef, { 
       board, winner: checkWinner(), turn: turn === 1 ? 2 : 1,
-    }, { merge: true });
+    });
   }
 
   return (

@@ -6,7 +6,7 @@ export default function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/connect-four/:roomId" element={<ConnectFour />} />
+        <Route path="*" element={<ConnectFour />} />
       </Routes>
     </BrowserRouter>
   );
