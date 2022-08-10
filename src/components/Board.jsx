@@ -67,7 +67,12 @@ export default function Board({ docRef, gameVariables }) {
   return (
     <div className="board-container">
       <div className="board-label">
-        {players[0]} vs. {players[1]}
+        {players.length ?
+          players.length < 2 ?
+          `Waiting for Player 2` :
+          `${players[0]} vs. ${players[1]}` :
+          `Connect 4`
+        }
       </div>
       <div className="board" id="board">
         {board.map((value, index) => 
@@ -84,9 +89,11 @@ export default function Board({ docRef, gameVariables }) {
         )}
       </div>
       <div className="board-label" onClick={resetBoard}>
-        {winner ?
+        {players.length ?
+          winner ?
           `Player ${winner} has won! Tap to reset game.` :
-          `${players[turn - 1]}'s turn`
+          `${players[turn - 1]}'s turn` :
+          `Connect 4`
         }
       </div>
     </div>

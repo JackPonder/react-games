@@ -1,20 +1,23 @@
-.sidebar {
+.info-box {
   display: flex;
   flex-direction: column;
   background-color: var(--color-100);
   padding: 4vmin;
   text-align: center;
   max-height: 100vh;
-  min-width: 10rem;
+  flex-grow: 1;
+  margin: 2vmin;
+  margin-left: 0;
+  border-radius: 2vmin;
 }
 
-.sidebar-link {
-  text-decoration: none;
-  color: var(--color-300);
+.btn {
+  display: auto;
 }
 
 @media only screen and (max-width: 775px) {
-  .sidebar {
-    max-width: 100%;
-  } 
+  .info-box {
+    margin-left: 2vmin;
+    margin-top: 0;
+  }
 }

@@ -18,7 +18,9 @@ export default function Sidebar() {
 
   return (
     <div className="sidebar">
-      <h1>Connect 4</h1>
+      <a href="/" className="sidebar-link">
+        <h1>Connect 4</h1>
+      </a> 
       <div>
         {user ?
           <button onClick={signout} className="btn">Sign Out</button> :
