@@ -24,7 +24,7 @@ export default function Game() {
   onSnapshot(docRef, doc => {
     setGameData(doc.data());
     const players = doc.data().players;
-    if (!players.includes(user.displayName) && players.length < 2) {
+    if (user && !players.includes(user.displayName) && players.length < 2) {
       updateDoc(docRef, {players: arrayUnion(user.displayName)});
     }
   });

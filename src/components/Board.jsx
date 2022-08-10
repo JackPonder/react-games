@@ -4,11 +4,8 @@ import { useUser } from "../hooks/useUser";
 import "../styles/Board.css";
 
 export default function Board({ docRef, gameVariables }) {
+  const {board, players, turn, winner} = gameVariables;
   const {user} = useUser();
-  const board = gameVariables.board;
-  const players = gameVariables.players;
-  const turn = gameVariables.turn;
-  const winner = gameVariables.winner;
 
   const resetBoard = () => {
     if (!winner) return;
