@@ -35,6 +35,9 @@ h1, h2, h3, h4, h5, h6 {
     flex-direction: column;
     height: auto;
   }
+  .hidden {
+    display: none;
+  }
 }
 
 .btn {
@@ -51,11 +54,11 @@ h1, h2, h3, h4, h5, h6 {
   margin-top: 0.5rem;
 }
 
+.btn:hover {
+  background-color: var(--color-700);
+}
+
 .btn-large {
   padding: 2.5vmin 0vmin 2.25vmin;
   margin-bottom: 1vmin;
-}
-
-.btn:hover {
-  background-color: var(--color-700);
 }

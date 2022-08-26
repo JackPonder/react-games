@@ -11,10 +11,6 @@
   border-radius: 2vmin;
 }
 
-.btn {
-  display: auto;
-}
-
 @media only screen and (max-width: 775px) {
   .info-box {
     margin-left: 2vmin;
