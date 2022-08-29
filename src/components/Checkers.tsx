@@ -130,7 +130,7 @@ export default function Checkers() {
     currentPiece = targetSpace;
     setDoubleJump(possibleJumps.includes(targetSpace) ? checkDoubleJump() : []);
 
-    if (!(possibleJumps.includes(targetSpace) && checkDoubleJump())) {
+    if (!(possibleJumps.includes(targetSpace) && checkDoubleJump().length)) {
       setTurn(turn === 1 ? 2 : 1);
     }
   }
