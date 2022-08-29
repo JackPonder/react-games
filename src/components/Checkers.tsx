@@ -8,14 +8,14 @@ export default function Checkers() {
   const [winner, setWinner] = useState(0 as 0 | 1 | 2);
   const [doubleJump, setDoubleJump] = useState(0);
   const [board, setBoard] = useState([
-    0, 2, 0, 2, 0, 2, 0, 2,
-    2, 0, 2, 0, 2, 0, 2, 0,
-    0, 2, 0, 2, 0, 2, 0, 2,
-    0, 0, 0, 0, 0, 0, 0, 0,
-    0, 0, 0, 0, 0, 0, 0, 0,
-    1, 0, 1, 0, 1, 0, 1, 0,
-    0, 1, 0, 1, 0, 1, 0, 1,
-    1, 0, 1, 0, 1, 0, 1, 0,
+    -1, 2, -1, 2, -1, 2, -1, 2,
+    2, -1, 2, -1, 2, -1, 2, -1,
+    -1, 2, -1, 2, -1, 2, -1, 2,
+    0, -1, 0, -1, 0, -1, 0, -1,
+    -1, 0, -1, 0, -1, 0, -1, 0,
+    1, -1, 1, -1, 1, -1, 1, -1,
+    -1, 1, -1, 1, -1, 1, -1, 1,
+    1, -1, 1, -1, 1, -1, 1, -1,
   ]);
 
   let currentPiece = -1;
@@ -25,14 +25,14 @@ export default function Checkers() {
     setTurn(1);
     setWinner(0);
     setBoard([
-      0, 2, 0, 2, 0, 2, 0, 2,
-      2, 0, 2, 0, 2, 0, 2, 0,
-      0, 2, 0, 2, 0, 2, 0, 2,
-      0, 0, 0, 0, 0, 0, 0, 0,
-      0, 0, 0, 0, 0, 0, 0, 0,
-      1, 0, 1, 0, 1, 0, 1, 0,
-      0, 1, 0, 1, 0, 1, 0, 1,
-      1, 0, 1, 0, 1, 0, 1, 0,
+      -1, 2, -1, 2, -1, 2, -1, 2,
+      2, -1, 2, -1, 2, -1, 2, -1,
+      -1, 2, -1, 2, -1, 2, -1, 2,
+      0, -1, 0, -1, 0, -1, 0, -1,
+      -1, 0, -1, 0, -1, 0, -1, 0,
+      1, -1, 1, -1, 1, -1, 1, -1,
+      -1, 1, -1, 1, -1, 1, -1, 1,
+      1, -1, 1, -1, 1, -1, 1, -1,
     ]);
     currentPiece = -1;
   }
@@ -50,27 +50,27 @@ export default function Checkers() {
     return 0;
   }
 
-  const checkDoubleJump = (piece: number) => {
-    const possibleMoves = !Number.isInteger(board[piece]) ? [
-      piece - 7,
-      piece - 9,
-      piece + 7,
-      piece + 9,
+  const checkDoubleJump = () => {
+    const possibleMoves = !Number.isInteger(board[currentPiece]) ? [
+      currentPiece - 7,
+      currentPiece - 9,
+      currentPiece + 7,
+      currentPiece + 9,
     ] : turn === 1 ? [
-      piece - 7,
-      piece - 9,
+      currentPiece - 7,
+      currentPiece - 9,
     ] : [
-      piece + 7,
-      piece + 9,
+      currentPiece + 7,
+      currentPiece + 9,
     ];
     const possibleJumps = possibleMoves.map(value => 
-      piece + 2 * (value - piece)
+      currentPiece + 2 * (value - currentPiece)
     );
 
     for (let i = 0; i < possibleMoves.length; i++) {
       const move = possibleMoves[i];
       const jump = possibleJumps[i];
-      if (board[move] === (turn === 1 ? 2 : 1) && board[jump] === 0) {
+      if (Math.floor(board[move]) === (turn === 1 ? 2 : 1) && board[jump] === 0) {
         return jump;
       }
     }
@@ -86,7 +86,7 @@ export default function Checkers() {
     event.preventDefault();
     const targetSpace = parseInt(event.currentTarget.id);
     if (turn !== Math.floor(board[currentPiece])) {return}
-    if (board[targetSpace]) {return}
+    if (board[targetSpace] !== 0) {return}
 
     const possibleMoves = !Number.isInteger(board[currentPiece]) ? [
       currentPiece - 7,
@@ -111,7 +111,7 @@ export default function Checkers() {
     if (possibleMoves.includes(targetSpace)) {
       board[targetSpace] = board[currentPiece];
       board[currentPiece] = 0;
-    } else if (possibleJumps.includes(targetSpace) && board[findMid(currentPiece, targetSpace)] === (turn === 1 ? 2 : 1)) {
+    } else if (possibleJumps.includes(targetSpace) && Math.floor(board[findMid(currentPiece, targetSpace)]) === (turn === 1 ? 2 : 1)) {
       board[targetSpace] = board[currentPiece];
       board[findMid(currentPiece, targetSpace)] = 0;
       board[currentPiece] = 0;
@@ -127,9 +127,9 @@ export default function Checkers() {
 
     setWinner(checkWinner());
     currentPiece = targetSpace;
-    possibleJumps.includes(targetSpace) ? setDoubleJump(checkDoubleJump(targetSpace)) : setDoubleJump(0);
+    setDoubleJump(possibleJumps.includes(targetSpace) ? checkDoubleJump() : 0);
 
-    if (!(possibleJumps.includes(targetSpace) && checkDoubleJump(targetSpace))) {
+    if (!(possibleJumps.includes(targetSpace) && checkDoubleJump())) {
       setTurn(turn === 1 ? 2 : 1);
     }
   }
@@ -147,7 +147,7 @@ export default function Checkers() {
       <div className="checkerboard">
         {board.map((value, index) => 
           <div id={index.toString()} onDrop={drop} onDragOver={allowDrop}>
-            {value ? 
+            {value > 0 ? 
               Number.isInteger(value) ? 
               <div className={`piece player-${value}`} 
                 onDrag={drag} draggable={turn === value ? true : false}>  
@@ -157,7 +157,7 @@ export default function Checkers() {
                 <TbCrown size="50%" />
               </div> :
               null
-            }
+            } 
           </div>
         )}
       </div>
