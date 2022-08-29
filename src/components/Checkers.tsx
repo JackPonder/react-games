@@ -6,7 +6,7 @@ import "../styles/Board.css";
 export default function Checkers() {
   const [turn, setTurn] = useState(1 as 1 | 2);
   const [winner, setWinner] = useState(0 as 0 | 1 | 2);
-  const [doubleJump, setDoubleJump] = useState(0);
+  const [doubleJump, setDoubleJump] = useState([] as number[]);
   const [board, setBoard] = useState([
     -1, 2, -1, 2, -1, 2, -1, 2,
     2, -1, 2, -1, 2, -1, 2, -1,
@@ -66,16 +66,17 @@ export default function Checkers() {
     const possibleJumps = possibleMoves.map(value => 
       currentPiece + 2 * (value - currentPiece)
     );
+    let possibleDoubleJumps: number[] = [];
 
     for (let i = 0; i < possibleMoves.length; i++) {
       const move = possibleMoves[i];
       const jump = possibleJumps[i];
       if (Math.floor(board[move]) === (turn === 1 ? 2 : 1) && board[jump] === 0) {
-        return jump;
+        possibleDoubleJumps.push(jump);
       }
     }
 
-    return 0;
+    return possibleDoubleJumps;
   }
 
   const findMid = (pos1: number, pos2: number) => {
@@ -93,7 +94,7 @@ export default function Checkers() {
       currentPiece - 9,
       currentPiece + 7,
       currentPiece + 9,
-    ] : doubleJump ? [
+    ] : doubleJump.length ? [
 
     ] : turn === 1 ? [
       currentPiece - 7,
@@ -102,9 +103,9 @@ export default function Checkers() {
       currentPiece + 7,
       currentPiece + 9,
     ];
-    const possibleJumps = doubleJump ? [
-      doubleJump
-    ] : possibleMoves.map(value => 
+    const possibleJumps = doubleJump.length ? 
+      doubleJump : 
+      possibleMoves.map(value => 
       currentPiece + 2 * (value - currentPiece)
     );
 
@@ -127,7 +128,7 @@ export default function Checkers() {
 
     setWinner(checkWinner());
     currentPiece = targetSpace;
-    setDoubleJump(possibleJumps.includes(targetSpace) ? checkDoubleJump() : 0);
+    setDoubleJump(possibleJumps.includes(targetSpace) ? checkDoubleJump() : []);
 
     if (!(possibleJumps.includes(targetSpace) && checkDoubleJump())) {
       setTurn(turn === 1 ? 2 : 1);
@@ -164,7 +165,7 @@ export default function Checkers() {
       <div className="board-label" onClick={resetGame}>
         {winner ?
           `Player ${winner} has won! Tap to reset game.` :
-          doubleJump ?
+          doubleJump.length ?
           `Player ${turn}'s Double Jump!` :
           `Player ${turn}'s turn`
         }
