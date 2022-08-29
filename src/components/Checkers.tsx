@@ -4,10 +4,9 @@ import { TbCrown } from "react-icons/tb";
 import "../styles/Board.css";
 
 export default function Checkers() {
-  const [currentPiece, setCurrentPiece] = useState(-1);
-  const [doubleJump, setDoubleJump] = useState(0);
   const [turn, setTurn] = useState(1 as 1 | 2);
   const [winner, setWinner] = useState(0 as 0 | 1 | 2);
+  const [doubleJump, setDoubleJump] = useState(0);
   const [board, setBoard] = useState([
     0, 2, 0, 2, 0, 2, 0, 2,
     2, 0, 2, 0, 2, 0, 2, 0,
@@ -19,11 +18,12 @@ export default function Checkers() {
     1, 0, 1, 0, 1, 0, 1, 0,
   ]);
 
+  let currentPiece = -1;
+
   const resetGame = () => {
     if (!winner) {return}
     setTurn(1);
     setWinner(0);
-    setCurrentPiece(-1);
     setBoard([
       0, 2, 0, 2, 0, 2, 0, 2,
       2, 0, 2, 0, 2, 0, 2, 0,
@@ -34,6 +34,7 @@ export default function Checkers() {
       0, 1, 0, 1, 0, 1, 0, 1,
       1, 0, 1, 0, 1, 0, 1, 0,
     ]);
+    currentPiece = -1;
   }
 
   const allowDrop: DragEventHandler = (event) => {
@@ -125,7 +126,7 @@ export default function Checkers() {
     }
 
     setWinner(checkWinner());
-    setCurrentPiece(targetSpace);
+    currentPiece = targetSpace;
     possibleJumps.includes(targetSpace) ? setDoubleJump(checkDoubleJump(targetSpace)) : setDoubleJump(0);
 
     if (!(possibleJumps.includes(targetSpace) && checkDoubleJump(targetSpace))) {
@@ -135,7 +136,7 @@ export default function Checkers() {
 
   const drag: DragEventHandler = (event) => {
     event.preventDefault();
-    setCurrentPiece(parseInt(event.currentTarget.parentElement!.id));
+    currentPiece = parseInt(event.currentTarget.parentElement!.id);
   }
 
   return (
