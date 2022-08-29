@@ -89,13 +89,12 @@ export default function Checkers() {
     if (turn !== Math.floor(board[currentPiece])) {return}
     if (board[targetSpace] !== 0) {return}
 
-    const possibleMoves = !Number.isInteger(board[currentPiece]) ? [
+    const possibleMoves = doubleJump.length ? [
+    ] : !Number.isInteger(board[currentPiece]) ? [
       currentPiece - 7,
       currentPiece - 9,
       currentPiece + 7,
       currentPiece + 9,
-    ] : doubleJump.length ? [
-
     ] : turn === 1 ? [
       currentPiece - 7,
       currentPiece - 9,
