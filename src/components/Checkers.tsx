@@ -5,6 +5,7 @@ import "../styles/Board.css";
 
 export default function Checkers() {
   const [currentPiece, setCurrentPiece] = useState(-1);
+  const [doubleJump, setDoubleJump] = useState(0);
   const [turn, setTurn] = useState(1 as 1 | 2);
   const [winner, setWinner] = useState(0 as 0 | 1 | 2);
   const [board, setBoard] = useState([
@@ -35,6 +36,10 @@ export default function Checkers() {
     ]);
   }
 
+  const allowDrop: DragEventHandler = (event) => {
+    event.preventDefault();
+  }
+
   const checkWinner = () => {
     if (!board.includes(1) && board.includes(2)) {
       return 2;
@@ -44,12 +49,36 @@ export default function Checkers() {
     return 0;
   }
 
-  const findMid = (num1: number, num2: number) => {
-    return num1 - ((num1 - num2) / 2);
+  const checkDoubleJump = (piece: number) => {
+    const possibleMoves = !Number.isInteger(board[piece]) ? [
+      piece - 7,
+      piece - 9,
+      piece + 7,
+      piece + 9,
+    ] : turn === 1 ? [
+      piece - 7,
+      piece - 9,
+    ] : [
+      piece + 7,
+      piece + 9,
+    ];
+    const possibleJumps = possibleMoves.map(value => 
+      piece + 2 * (value - piece)
+    );
+
+    for (let i = 0; i < possibleMoves.length; i++) {
+      const move = possibleMoves[i];
+      const jump = possibleJumps[i];
+      if (board[move] === (turn === 1 ? 2 : 1) && board[jump] === 0) {
+        return jump;
+      }
+    }
+
+    return 0;
   }
 
-  const allowDrop: DragEventHandler = (event) => {
-    event.preventDefault();
+  const findMid = (pos1: number, pos2: number) => {
+    return pos1 - ((pos1 - pos2) / 2);
   }
 
   const drop: DragEventHandler = (event) => {
@@ -63,6 +92,8 @@ export default function Checkers() {
       currentPiece - 9,
       currentPiece + 7,
       currentPiece + 9,
+    ] : doubleJump ? [
+
     ] : turn === 1 ? [
       currentPiece - 7,
       currentPiece - 9,
@@ -70,7 +101,9 @@ export default function Checkers() {
       currentPiece + 7,
       currentPiece + 9,
     ];
-    const possibleJumps = possibleMoves.map(value => 
+    const possibleJumps = doubleJump ? [
+      doubleJump
+    ] : possibleMoves.map(value => 
       currentPiece + 2 * (value - currentPiece)
     );
 
@@ -92,7 +125,12 @@ export default function Checkers() {
     }
 
     setWinner(checkWinner());
-    setTurn(turn === 1 ? 2 : 1);
+    setCurrentPiece(targetSpace);
+    possibleJumps.includes(targetSpace) ? setDoubleJump(checkDoubleJump(targetSpace)) : setDoubleJump(0);
+
+    if (!(possibleJumps.includes(targetSpace) && checkDoubleJump(targetSpace))) {
+      setTurn(turn === 1 ? 2 : 1);
+    }
   }
 
   const drag: DragEventHandler = (event) => {
@@ -125,6 +163,8 @@ export default function Checkers() {
       <div className="board-label" onClick={resetGame}>
         {winner ?
           `Player ${winner} has won! Tap to reset game.` :
+          doubleJump ?
+          `Player ${turn}'s Double Jump!` :
           `Player ${turn}'s turn`
         }
       </div>
