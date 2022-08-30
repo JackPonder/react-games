@@ -1,0 +1,14 @@
+.checkerboard {
+  display: grid;
+  grid-template-columns: repeat(8, 9.75vmin);
+  grid-template-rows: repeat(8, 9.75vmin);
+  margin: 1vmin; 
+  border: solid 1px var(--color-100);
+}
+
+.checkerboard > div {
+  width: 80%;
+  height: 80%;
+  padding: 10%;
+  border: solid 1px var(--color-100);
+}

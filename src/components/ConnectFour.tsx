@@ -2,6 +2,7 @@ import { useState, MouseEventHandler } from "react";
 import { TbCrown } from "react-icons/tb";
 
 import "../styles/Board.css";
+import "../styles/ConnectFour.css";
 
 export default function ConnectFour() {
   const [board, setBoard] = useState(Array(42).fill(0) as number[]);
@@ -63,7 +64,7 @@ export default function ConnectFour() {
       </div>
       <div className="board">
         {board.map((value, index) => 
-          <div className="grid-space" id={index.toString()} onClick={handleMove}>
+          <div id={index.toString()} onClick={handleMove}>
             {value ? 
               Number.isInteger(value) ? 
               <div className={`piece player-${value} drop-in`} /> : 

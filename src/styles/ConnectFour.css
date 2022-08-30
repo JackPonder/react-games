@@ -1,0 +1,30 @@
+.board {
+  display: grid;
+  grid-template-columns: repeat(7, 13vmin);
+  grid-template-rows: repeat(6, 13vmin);
+  background-color: var(--color-100);
+  width: 91vmin;
+  height: 78vmin;
+  border-radius: 3vmin;
+  padding: 1vmin; 
+}
+
+.board > div {
+  margin: 1vmin;
+  background-color: var(--color-200);
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+@keyframes drop-in {
+  0%   { transform: translateY(-90vmin) }
+  50%  { transform: translateY(0) }
+  60%  { transform: translateY(-6vmin) }
+  75%  { transform: translateY(0) }
+  90%  { transform: translateY(-2vmin) }
+  100% { transform: translateY(0) }
+}
+
+.drop-in {
+  animation: drop-in 750ms ease-in;
+}

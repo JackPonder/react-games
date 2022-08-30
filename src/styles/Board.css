@@ -17,33 +17,6 @@
   font-size: 3vh;
 }
 
-.board {
-  display: grid;
-  grid-template-columns: repeat(7, 13vmin);
-  grid-template-rows: repeat(6, 13vmin);
-  background-color: var(--color-100);
-  width: 91vmin;
-  height: 78vmin;
-  border-radius: 3vmin;
-  padding: 1vmin; 
-}
-
-.grid-space {
-  margin: 1vmin;
-  background-color: var(--color-200);
-  border-radius: 50%;
-  cursor: pointer;
-}
-
-@keyframes drop-in {
-  0%   { transform: translateY(-90vmin) }
-  50%  { transform: translateY(0) }
-  60%  { transform: translateY(-6vmin) }
-  75%  { transform: translateY(0) }
-  90%  { transform: translateY(-2vmin) }
-  100% { transform: translateY(0) }
-}
-
 .piece {
   display: flex;
   align-items: center;
@@ -54,29 +27,10 @@
   cursor: pointer;
 }
 
-.drop-in {
-  animation: drop-in 750ms ease-in;
-}
-
 .player-1 {
   background-color: var(--color-400);
 }
 
 .player-2 {
   background-color: var(--color-500);
-}
-
-.checkerboard {
-  display: grid;
-  grid-template-columns: repeat(8, 9.75vmin);
-  grid-template-rows: repeat(8, 9.75vmin);
-  margin: 1vmin; 
-  border: solid 1px var(--color-100);
-}
-
-.checkerboard > div {
-  width: 80%;
-  height: 80%;
-  padding: 10%;
-  border: solid 1px var(--color-100);
 }

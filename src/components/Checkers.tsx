@@ -2,6 +2,7 @@ import { useState, DragEventHandler } from "react";
 import { TbCrown } from "react-icons/tb";
 
 import "../styles/Board.css";
+import "../styles/Checkers.css";
 
 export default function Checkers() {
   const [turn, setTurn] = useState(1 as 1 | 2);
