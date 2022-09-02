@@ -1,5 +1,3 @@
-import "../styles/InfoBox.css";
-
 export default function InfoBox() {
   const otherGames = [
     {name: "Connect 4", link: "connect-four"}, 

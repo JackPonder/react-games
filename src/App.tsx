@@ -5,6 +5,11 @@ import Checkers from "./components/Checkers";
 import InfoBox from "./components/InfoBox";
 
 import './styles/App.css';
+import "./styles/Board.css";
+import "./styles/Checkers.css";
+import "./styles/ConnectFour.css";
+import "./styles/Sidebar.css";
+import "./styles/InfoBox.css";
 
 export default function App() {
   return (

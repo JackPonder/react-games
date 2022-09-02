@@ -1,9 +1,6 @@
 import { useState, MouseEventHandler } from "react";
 import { TbCrown } from "react-icons/tb";
 
-import "../styles/Board.css";
-import "../styles/ConnectFour.css";
-
 export default function ConnectFour() {
   const [board, setBoard] = useState(Array(42).fill(0) as number[]);
   const [turn, setTurn] = useState(1 as 1 | 2);
